@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--映射接口-->
+<mapper namespace="com.qianfeng.mapper.UserMapper">
+	
+	<select id="findByName" parameterType="User" resultType="User">
+		  select * from user where username=#{username}
+	</select>
+	<update id="updateByName" parameterType="User">
+		update user set nicename=#{nicename},age=#{age},sex=#{sex},phone=#{phone},address=#{address}
+		where id=#{id}
+	</update>
+	<select id="findAll"  resultType="User">
+		  select * from user 
+	</select>
+	<select id="findEmailById"  resultType="UserEmail" parameterType="Integer">
+		  select * from email where sid=#{id}
+	</select>
+	<select id="findById"  resultType="User">
+		  select * from user where id=#{id}
+	</select>
+	<select id="getEmailById"  resultType="UserEmail" parameterType="Integer">
+		  select * from email where id=#{id}
+	</select>
+	<insert id="insert" parameterType="UserEmail">
+		insert into email (sid,title,content,file,isread,time,fname,filename)values(#{sid},#{title},#{content},#{file},#{isread},#{time},#{fname},#{filename})
+	</insert>
+	<insert id="insertRemail" parameterType="UserEmail">
+		insert into email (sid,title,content,file,isread,time,fname,id,filename)values(#{sid},#{title},#{content},#{file},#{isread},#{time},#{fname},#{id},#{filename})
+	</insert>
+	<insert id="insertEmail" parameterType="UserEmail">
+		insert into remail (sid,title,content,file,isread,time,fname,id,filename)values(#{sid},#{title},#{content},#{file},#{isread},#{time},#{fname},#{id},#{filename})
+	</insert>
+	<update id="updateById" parameterType="UserEmail">
+		update email set isread=#{isread} where id=#{id}
+	</update>
+	<delete id="deleteById" parameterType="Integer">
+		delete from email where id=#{id}
+	</delete>
+	<delete id="deleteRemailById" parameterType="Integer">
+		delete from remail where id=#{id}
+	</delete>
+	<select id="findAllRemail"  resultType="UserEmail" parameterType="Integer">
+		  select * from remail where sid=#{id}
+	</select>
+	<select id="findRemailById"  resultType="UserEmail" parameterType="Integer">
+		  select * from remail where id=#{id}
+	</select>
+	<select id="findVacation"  resultType="UserVacation" parameterType="User">
+		  select * from vacation where username=#{username}
+	</select>
+	<select id="findAllVacation"  resultType="UserVacation" parameterType="String">
+		  select * from vacation where approver=#{username} or username=#{username}
+	</select>
+	<select id="findApplicant"  resultType="User" parameterType="Integer">
+		  select * from User where isadmin=#{admin}
+	</select>
+	<insert id="saveApply" parameterType="UserEmail">
+		insert into vacation (username,begintime,endtime,days,cause,approver,state)values(#{username},#{begintime},#{endtime},#{days},#{cause},#{approver},#{state})
+	</insert>
+	<select id="findApply"  resultType="UserVacation" parameterType="Integer">
+		  select * from vacation where id=#{id}
+	</select>
+	<update id="updatestate" parameterType="UserVacation">
+		update vacation set state=#{state} where id=#{id}
+	</update>
+	<update id="updateUser" parameterType="User">
+		update User set username=#{username},password=#{password} where id=#{id}
+	</update>
+	<insert id="saveUser" parameterType="User">
+		insert into User (password,username,age,sex,phone,address,isadmin,nicename)values(#{password},#{username},#{age},#{sex},#{phone},#{address},#{isadmin},#{nicename})
+	</insert>
+</mapper>
